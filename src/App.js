@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, createContext } from 'react';
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  HashRouter
+} from "react-router-dom";
+import Layout from './layout/Layout/Layout'
+import Dashboard from './layout/Dashboard/Dashboard'
+import Artist from './layout/Artist/Artist'
+import Tracks from './layout/Tracks/Tracks'
+import musicContext from './context/musicContext';
 
 function App() {
+  const [music, setMusic] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <musicContext.Provider value={{music, setMusic}}>
+    <div className="w-full h-[100vh] font-quicksand">
+      <HashRouter>
+        <Routes>
+                   
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+          </Route>
+
+          <Route path="/artist" element={<Layout />}>
+            <Route index element={<Artist />} />
+            <Route path='/artist/:id' element={<Tracks />} />
+          </Route>
+
+        </Routes>
+      </HashRouter>
     </div>
+    </musicContext.Provider>
   );
 }
 

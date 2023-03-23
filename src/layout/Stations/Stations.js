@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import HeaderBar from '../../elements/molecules/HeaderBar'
 import ListCard from '../../elements/molecules/ListCard'
-import ArtistCard from '../../elements/atoms/ArtistCard/ArtistCard'
+import StationCard from '../../elements/atoms/StationCard/StationCard'
 import { useDebouncedValue } from '../../hooks/useDebouncedValue'
 
 import axios from 'axios';
 
-export default function Artist() {
+export default function Stations() {
   const [artists, setArtists] = useState([]);
   const [textValue, setTextValue] = useState(''); 
 
@@ -14,10 +14,10 @@ export default function Artist() {
 
   const getArtist = async ()=>{
     try {
-      const {data} = await axios.get(`https://api.deezer.com/search/artist?q=${value.length > 0 ? value : 'all'}`);
-      setArtists(data.data)
+        const {data} = await axios.get(`https://api.deezer.com/radio`);
+        setArtists(data.data)
     } catch (error) {
-      console.log(error)
+        console.log(error)
     }
   }
   useEffect(()=>{
@@ -25,14 +25,14 @@ export default function Artist() {
   },[value])
   return (
       <div className="w-full lg:w-[calc(100%-330px)]">
-      <HeaderBar textValue={textValue} setTextValue={setTextValue}/>
-      <h3 className="text-paragraph-01 text-primary mb-5 font-bold">Artistas top</h3>
+      <HeaderBar textValue={textValue} setTextValue={setTextValue} isVisibleSearch={false}/>
+      <h3 className="text-paragraph-01 text-primary mb-5 font-bold">Estaciones</h3>
       
       {artists && artists.length < 1 ? 
         <span className="">No se encontro resultado para {value}</span> :
         <ListCard>
             {artists.map((artist)=>(
-                <ArtistCard key={artist.id} data={artist} />
+                <StationCard key={artist.id} data={artist}/>
             ))}
         </ListCard>
         }

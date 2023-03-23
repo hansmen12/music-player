@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function ArtistCard({data}) {
+export default function StationCard({data}) {
 
   return (
-    <Link to={`/artist/artist/${data.id}`}>
+    <Link to={`/stations/radio/${data.id}`}>
       <div className="w-[160px] cursor-pointer">
           <div className="w-full h-[160px]">
             <img src={data.picture_medium} className="w-full h-full"/>

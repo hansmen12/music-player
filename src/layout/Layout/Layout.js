@@ -12,8 +12,10 @@ export default function Layout() {
     <div className="w-full h-full flex">
       <MenuBar />
       {music && <Player />}
-      
+      <div className="w-full h-[100vh] p-5 px-10 flex">
+      <div className="lg:w-[330px]"></div>
       <Outlet />
+      </div>
     </div>
   )
 }
